@@ -41,7 +41,7 @@ Created on Mon Jul 24 20:06:48 2017
 #==============================================================================
 
 
-#把 3月~5月 8点~9点 的历史数据提取出来，相同的 (link,星期几,时间片) 求和，平均，作为 6月 8点~9点 的预测值，前后6分钟之内的平均
+#把 3月~5月 8点~9点 的历史数据提取出来，相同的 (link,星期几,时间片) 求和，平均，作为 6月 8点~9点 的预测值
 first_day=(2,5,7,3) # 3月~6月 的第一天是星期几
 data=[]
 Dict={} # 从 (link,星期几,时间片) 到 [加和，数量] 的映射
@@ -74,8 +74,10 @@ for link in Link:
             x=(link,day+1,minute*2);
             if x in Dict:
                 y=sorted(Dict[x])
-                Dict2[x]=y[int(len(y)/2)]
-                prevalue=y[int(len(y)/2)]
+                z=max(int(len(y)/2)-1,0)
+                
+                Dict2[x]=y[z]
+                prevalue=y[z]
             else:
                 Dict2[x]=prevalue;
 
